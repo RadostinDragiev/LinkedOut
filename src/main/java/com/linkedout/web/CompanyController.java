@@ -1,7 +1,11 @@
 package com.linkedout.web;
 
 import com.linkedout.model.binding.CompanyAddBindingModel;
+import com.linkedout.model.service.CompanyServiceModel;
+import com.linkedout.service.CompanyService;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +21,15 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/companies")
 public class CompanyController {
+    private final CompanyService companyService;
+    private final ModelMapper modelMapper;
+
+    @Autowired
+    public CompanyController(CompanyService companyService, ModelMapper modelMapper) {
+        this.companyService = companyService;
+        this.modelMapper = modelMapper;
+    }
+
     @GetMapping("/add")
     public String getAddCompany(Model model) {
         if (!model.containsAttribute("companyAddBindingModel")) {
@@ -33,6 +46,9 @@ public class CompanyController {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.companyAddBindingModel", bindingResult);
             return "redirect:/companies/add";
         }
+
+        this.companyService.addCompany(this.modelMapper.map(companyAddBindingModel, CompanyServiceModel.class));
+
         return "redirect:/";
     }
 }
