@@ -36,7 +36,7 @@ public class EmployeeController {
         if (!model.containsAttribute("employeeAddBindingModel")) {
             model.addAttribute("employeeAddBindingModel", new EmployeeAddBindingModel());
         }
-        model.addAttribute("companies", this.companyService.getAllCompanies());
+        model.addAttribute("companies", this.companyService.getAllCompanyNames());
         return "employee-add";
     }
 

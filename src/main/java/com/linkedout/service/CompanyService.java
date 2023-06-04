@@ -8,7 +8,11 @@ import java.util.List;
 public interface CompanyService {
     CompanyServiceModel addCompany(CompanyServiceModel companyServiceModel);
 
-    List<String> getAllCompanies();
+    List<String> getAllCompanyNames();
 
     Company getCompanyByName(String name);
+
+    List<CompanyServiceModel> getAllCompanies();
+
+    void deleteCompany(String id);
 }

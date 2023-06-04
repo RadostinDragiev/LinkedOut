@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,12 +40,22 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public List<String> getAllCompanies() {
+    public List<String> getAllCompanyNames() {
         return this.companyRepository.findAll().stream().map(Company::getName).collect(Collectors.toList());
     }
 
     @Override
     public Company getCompanyByName(String name) {
         return this.companyRepository.findByName(name);
+    }
+
+    @Override
+    public List<CompanyServiceModel> getAllCompanies() {
+        return Arrays.stream(this.modelMapper.map(this.companyRepository.findAll(), CompanyServiceModel[].class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteCompany(String id) {
+        this.companyRepository.deleteById(id);
     }
 }
