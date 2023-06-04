@@ -1,6 +1,7 @@
 package com.linkedout.web;
 
 import com.linkedout.model.binding.EmployeeAddBindingModel;
+import com.linkedout.model.binding.EmployeeBindingModel;
 import com.linkedout.model.service.EmployeeServiceModel;
 import com.linkedout.service.CompanyService;
 import com.linkedout.service.EmployeeService;
@@ -9,13 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/employees")
@@ -50,6 +50,25 @@ public class EmployeeController {
         }
 
         this.employeeService.addEmployee(this.modelMapper.map(employeeAddBindingModel, EmployeeServiceModel.class));
+        return "redirect:/";
+    }
+
+    @GetMapping("/all")
+    public String getAllEmployees(Model model) {
+        model.addAttribute("employees",
+                Arrays.stream(this.modelMapper.map(this.employeeService.getAllEmployees(), EmployeeServiceModel[].class)).collect(Collectors.toList()));
+        return "employee-all";
+    }
+
+    @GetMapping("/details/{id}")
+    public String getEmployeeDetails(@PathVariable String id, Model model) {
+        model.addAttribute("employee", this.modelMapper.map(this.employeeService.getEmployeeById(id), EmployeeBindingModel.class));
+        return "employee-details";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteEmployee(@PathVariable String id) {
+        this.employeeService.deleteEmployeeById(id);
         return "redirect:/";
     }
 }

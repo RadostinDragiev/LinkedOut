@@ -1,5 +1,6 @@
 package com.linkedout.model.service;
 
+import com.linkedout.model.entity.Company;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployeeServiceModel {
+public class EmployeeDetailsServiceModel {
     private String uuid;
     private String firstName;
     private String lastName;
@@ -20,5 +21,5 @@ public class EmployeeServiceModel {
     private String jobTitle;
     private LocalDate birthDate;
     private BigDecimal salary;
-    private String company;
+    private Company company;
 }

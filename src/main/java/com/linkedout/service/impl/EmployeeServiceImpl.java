@@ -1,6 +1,7 @@
 package com.linkedout.service.impl;
 
 import com.linkedout.model.entity.Employee;
+import com.linkedout.model.service.EmployeeDetailsServiceModel;
 import com.linkedout.model.service.EmployeeServiceModel;
 import com.linkedout.repository.EmployeeRepository;
 import com.linkedout.service.CompanyService;
@@ -10,6 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -38,5 +42,20 @@ public class EmployeeServiceImpl implements EmployeeService {
                     .forEach(violation -> log.error(violation.getMessage()));
             return employeeServiceModel;
         }
+    }
+
+    @Override
+    public List<EmployeeServiceModel> getAllEmployees() {
+        return Arrays.asList(this.modelMapper.map(this.employeeRepository.findAll(), EmployeeServiceModel[].class));
+    }
+
+    @Override
+    public EmployeeDetailsServiceModel getEmployeeById(String id) {
+        return this.modelMapper.map(this.employeeRepository.findById(id), EmployeeDetailsServiceModel.class);
+    }
+
+    @Override
+    public void deleteEmployeeById(String id) {
+        this.employeeRepository.deleteById(id);
     }
 }
