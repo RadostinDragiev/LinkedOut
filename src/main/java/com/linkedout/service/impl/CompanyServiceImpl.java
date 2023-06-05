@@ -41,7 +41,11 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public List<String> getAllCompanyNames() {
-        return this.companyRepository.findAll().stream().map(Company::getName).collect(Collectors.toList());
+        return this.companyRepository.
+                findAll()
+                .stream()
+                .map(Company::getName)
+                .collect(Collectors.toList());
     }
 
     @Override
