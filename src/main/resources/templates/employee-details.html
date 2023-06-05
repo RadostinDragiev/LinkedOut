@@ -14,13 +14,13 @@
                 <div class="row">
                     <div class="col-md-6 bg-dark" th:object="${employee}">
                         <h2>Employee</h2>
-                        <h4 th:text="'First Name: ' + *{firstName}"/>
-                        <h4 th:text="'Last Name: ' + *{lastName}"/>
-                        <h4 th:text="'Education Level: ' + *{educationLevel}"/>
-                        <h4 th:text="'Job title: ' + *{jobTitle}"/>
-                        <h4 th:text="'Birthdate: ' + *{birthDate}"/>
-                        <h4 th:text="'Salary: ' + *{salary} + '$'"/>
-                        <h4 th:text="'Company: ' + *{company.name}"/>
+                        <h4 th:text="|First Name: *{firstName}|"/>
+                        <h4 th:text="|Last Name: *{lastName}|"/>
+                        <h4 th:text="|Education Level: *{educationLevel}|"/>
+                        <h4 th:text="|Job title: *{jobTitle}|"/>
+                        <h4 th:text="|Birthdate: *{birthDate}|"/>
+                        <h4 th:text="|Salary: *{salary}$|"/>
+                        <h4 th:text="|Company: *{company.name}|"/>
                         <div class="align-bottom">
 						<a class="btn btn-danger align-bottom"
                                                      th:href="@{/employees/delete/{id} (id = ${employee.uuid})}">Delete employee</a>

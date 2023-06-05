@@ -16,10 +16,10 @@
                     <div class="col-md-6 bg-dark"><img src="/pic/company.png" height="350px"></div>
                     <div class="col-md-6 bg-dark" th:object="${company}">
                         <h2>Company</h2>
-                        <h4 th:text="'Name: ' + *{name}"/>
-                        <h4 th:text="'Town:' + *{town}"/>
-                        <h4 th:text="'Description:' +  *{description}"/>
-                        <h4 th:text="'Budget: ' + *{budget}"></h4>
+                        <h4 th:text="|Name: *{name}|"/>
+                        <h4 th:text="|Town: *{town}|"/>
+                        <h4 th:text="|Description: *{description}|"/>
+                        <h4 th:text="|Budget: *{budget}|"></h4>
                         <div class="align-bottom"><a class="btn btn-danger align-bottom"
                                                      th:href="@{/companies/delete/{id}(id = *{uuid})}">Delete company</a>
                         </div>
